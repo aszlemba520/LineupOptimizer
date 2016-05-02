@@ -1,0 +1,62 @@
+﻿@model LineupOptimizer.Models.Home.HomeViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="well">
+    <div class="row">
+        <div class="col-md-3" style="float:left">
+            <a href="@Url.Action("MyTeam","Home")"><div class="homeLinks">My Team</div></a>
+        </div>
+        <div class="col-md-3" style="float:left">
+            <a href="@Url.Action("Injuries","Home")"><div class="homeLinks">Injuries</div></a>
+        </div>
+    </div>
+    <div class="row">
+        <label id="HomeShowActiveOnly"><span class="glyphicon-refresh"></span>Show Active Only</label>
+    </div>
+    <div class="row">
+        <table>
+            <tr>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Id)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().IsActive)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Name)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().JerseyNumber)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Team)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Position)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Height)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().Weight)</th>
+                <th>@Html.DisplayNameFor(x => x.MyTeamMyPlayerModels.FirstOrDefault().DOB)</th>
+            </tr>
+            @foreach (var item in Model.MyTeamMyPlayerModels)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.IsActive</td>
+                    <td>@item.Name</td>
+                    <td>@item.JerseyNumber</td>
+                    <td>@item.Team</td>
+                    <td>@item.Position</td>
+                    <td>@item.Height</td>
+                    <td>@item.Weight</td>
+                    <td>@item.DOB</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    
+</div>
+<script>
+    $(function () {
+        $("#HomeShowActiveOnly").click(function () {
+            $.get('@Url.Action("ActiveOnly", "Home")').done(function (data) {
+                @Model = data;
+
+            });
+        });
+    });
+</script>
